@@ -1,0 +1,6 @@
+@ShareBook_HostAddress = http://localhost:5248
+
+GET {{ShareBook_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
