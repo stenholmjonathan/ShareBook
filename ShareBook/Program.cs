@@ -1,7 +1,9 @@
 
+using Microsoft.EntityFrameworkCore;
 using ShareBook.Repositories;
 using ShareBook.Repositories.Interfaces;
 using ShareBook.Services;
+using ShareBookApi.Context;
 
 namespace ShareBook
 {
@@ -19,6 +21,9 @@ namespace ShareBook
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<ShareBookContext>(options => options.UseSqlServer(
+            builder.Configuration.GetConnectionString("ShareBookConnection")));
 
             var app = builder.Build();
 
