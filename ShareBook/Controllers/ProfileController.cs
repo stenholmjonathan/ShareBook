@@ -23,8 +23,8 @@ namespace ShareBook.Controllers
         [Route("GetAll")]
         public async Task<IActionResult> GetAllProfiles()
         {
-            var profiles = _profileService.GetAllProfiles();
-            return Ok();
+            var profiles = await _profileService.GetAllProfiles();
+            return Ok(profiles);
         }
     }
 }
