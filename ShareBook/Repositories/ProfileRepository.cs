@@ -14,7 +14,7 @@ namespace ShareBook.Repositories
             _context = context;
         }
 
-        public IEnumerable<Profile> GetAllProfiles()
+        public async Task<IEnumerable<Profile>> GetAllProfiles()
         {
             return _context.Profiles;
         }

@@ -4,6 +4,6 @@ namespace ShareBook.Repositories.Interfaces
 {
     public interface IProfileRepository
     {
-        IEnumerable<Profile> GetAllProfiles();
+        Task<IEnumerable<Profile>> GetAllProfiles();
     }
 }
