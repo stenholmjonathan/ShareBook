@@ -13,7 +13,7 @@ namespace ShareBook.Services
 
         public async Task<IEnumerable<Profile>> GetAllProfiles()
         {
-            return _profileRepository.GetAllProfiles();
+            return await _profileRepository.GetAllProfiles();
         }
     }
 }
