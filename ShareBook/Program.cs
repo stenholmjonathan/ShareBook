@@ -16,6 +16,8 @@ namespace ShareBook
             // Add services to the container.
             builder.Services.AddTransient<IProfileService, ProfileService>();
             builder.Services.AddTransient<IProfileRepository, ProfileRepository>();
+            builder.Services.AddTransient<IBlogPostService, BlogPostService>();
+            builder.Services.AddTransient<IBlogPostRepository, BlogPostRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

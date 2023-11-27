@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using ShareBook.Repositories.Interfaces;
+using ShareBookApi.Models;
 
 namespace ShareBook.Controllers
 {
@@ -7,16 +9,22 @@ namespace ShareBook.Controllers
     public class BlogPostController : ControllerBase
     {
         private readonly ILogger<BlogPostController> _logger;
+        private readonly IBlogPostService _blogPostService;
 
-        public BlogPostController(ILogger<BlogPostController> logger)
+        public BlogPostController(
+            ILogger<BlogPostController> logger,
+            IBlogPostService blogPostService)
         {
             _logger = logger;
+            _blogPostService = blogPostService;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<IActionResult> Get()
+        [HttpGet]
+        [Route("GetBlogPostById")]
+        public async Task<IActionResult> GetBlogPostByProfileId(int profileId)
         {
-            return Ok();
+            var result = await _blogPostService.GetBlogPostByProfileId(profileId);
+            return Ok(result);
         }
     }
 }
