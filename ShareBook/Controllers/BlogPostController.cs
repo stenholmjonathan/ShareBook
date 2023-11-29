@@ -22,8 +22,15 @@ namespace ShareBook.Controllers
         [Route("GetAllBlogPosts")]
         public async Task<IActionResult> GetAllBlogPosts()
         {
-            var posts = await _blogPostService.GetAllBlogPosts();
-            return Ok(posts);
+            try
+            {
+                var posts = await _blogPostService.GetAllBlogPosts();
+                return Ok(posts);
+            }
+            catch (Exception ex)
+            {                
+                throw new NullReferenceException("No data", ex);
+            }
         }
     }
 }
