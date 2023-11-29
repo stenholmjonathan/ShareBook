@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ShareBook.Repositories.Interfaces;
+using ShareBookApi.Models;
 
 namespace ShareBook.Controllers
 {
@@ -10,8 +11,9 @@ namespace ShareBook.Controllers
         private readonly ILogger<BlogPostController> _logger;
         private readonly IBlogPostService _blogPostService;
 
-        public BlogPostController
-            (ILogger<BlogPostController> logger,
+
+        public BlogPostController(
+            ILogger<BlogPostController> logger,
             IBlogPostService blogPostService)
         {
             _logger = logger;
@@ -19,6 +21,20 @@ namespace ShareBook.Controllers
         }
 
         [HttpGet]
+        [Route("GetBlogPostById")]
+        public async Task<IActionResult> GetBlogPostByProfileId(int profileId)
+        {
+            try
+            {
+                var result = await _blogPostService.GetBlogPostByProfileId(profileId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [Route("GetAllBlogPosts")]
         public async Task<IActionResult> GetAllBlogPosts()
         {

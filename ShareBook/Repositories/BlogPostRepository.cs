@@ -7,16 +7,21 @@ namespace ShareBook.Repositories
 {
     public class BlogPostRepository : IBlogPostRepository
     {
-        private readonly ShareBookContext _dbContext;
-        public BlogPostRepository(ShareBookContext dbContext)
+        private readonly ShareBookContext _context;
+        public BlogPostRepository(ShareBookContext context)
         {
-            _dbContext = dbContext;
-            
+            _context = context;      
+        }
+    
+        public async Task<IEnumerable<BlogPost>> GetBlogPostByProfileId(int profileId)
+        {
+            var result = await _context.Posts.Where(x => x.ProfileId == profileId).ToListAsync();
+            return result;
         }
 
         public async Task<IEnumerable<BlogPost>> GetAllBlogPosts()
         {
-            return await _dbContext.Posts.ToListAsync();
+            return await _context.Posts.ToListAsync();
         }
     }
 }
