@@ -23,8 +23,19 @@ namespace ShareBook.Controllers
         [Route("GetBlogPostById")]
         public async Task<IActionResult> GetBlogPostByProfileId(int profileId)
         {
-            var result = await _blogPostService.GetBlogPostByProfileId(profileId);
-            return Ok(result);
+            try
+            {
+                var result = await _blogPostService.GetBlogPostByProfileId(profileId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+
+
+
         }
     }
 }
