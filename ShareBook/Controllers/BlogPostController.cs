@@ -11,6 +11,7 @@ namespace ShareBook.Controllers
         private readonly ILogger<BlogPostController> _logger;
         private readonly IBlogPostService _blogPostService;
 
+
         public BlogPostController(
             ILogger<BlogPostController> logger,
             IBlogPostService blogPostService)
@@ -30,12 +31,22 @@ namespace ShareBook.Controllers
             }
             catch (Exception ex)
             {
-
                 return StatusCode(500, ex.Message);
             }
+        }
 
-
-
+        [Route("GetAllBlogPosts")]
+        public async Task<IActionResult> GetAllBlogPosts()
+        {
+            try
+            {
+                var posts = await _blogPostService.GetAllBlogPosts();
+                return Ok(posts);
+            }
+            catch (Exception ex)
+            {                
+                throw new NullReferenceException("No data", ex);
+            }
         }
     }
 }
