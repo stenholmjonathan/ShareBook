@@ -2,11 +2,10 @@
 {
     public class BlogPostNotFoundException : Exception
     {
-        public BlogPostNotFoundException() { }
+        //public BlogPostNotFoundException() { }
 
-        //public ProfileNotFoundException(string message) : base(message) { }
+        public BlogPostNotFoundException(string message) : base(message) { }
 
         //public ProfileNotFoundException(string message, Exception innerException) : base(message, innerException) { }     
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShareBook.Exceptions;
 using ShareBook.Repositories.Interfaces;
 using ShareBookApi.Context;
 using ShareBookApi.Models;
@@ -15,7 +16,19 @@ namespace ShareBook.Repositories
     
         public async Task<IEnumerable<BlogPost>> GetBlogPostByProfileId(int profileId)
         {
+            if (profileId < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(profileId));
+            }
+
             var result = await _context.Posts.Where(x => x.ProfileId == profileId).ToListAsync();
+
+            if (!result.Any())
+            {
+                throw new BlogPostNotFoundException("No blogposts were found");
+            }
+            
+
             return result;
         }
 
