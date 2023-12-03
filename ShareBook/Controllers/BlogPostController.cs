@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using ShareBook.Exceptions;
 using ShareBook.Repositories.Interfaces;
 using ShareBookApi.Models;
+
 
 namespace ShareBook.Controllers
 {
@@ -11,9 +13,8 @@ namespace ShareBook.Controllers
         private readonly ILogger<BlogPostController> _logger;
         private readonly IBlogPostService _blogPostService;
 
-
-        public BlogPostController(
-            ILogger<BlogPostController> logger,
+        public BlogPostController
+            (ILogger<BlogPostController> logger,
             IBlogPostService blogPostService)
         {
             _logger = logger;
@@ -29,12 +30,18 @@ namespace ShareBook.Controllers
                 var result = await _blogPostService.GetBlogPostByProfileId(profileId);
                 return Ok(result);
             }
+            catch (ProfileNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex, "An error occured while processing the request");
+                return StatusCode(500, "Internal server error");
             }
         }
 
+        [HttpGet]
         [Route("GetAllBlogPosts")]
         public async Task<IActionResult> GetAllBlogPosts()
         {
@@ -43,8 +50,13 @@ namespace ShareBook.Controllers
                 var posts = await _blogPostService.GetAllBlogPosts();
                 return Ok(posts);
             }
+            catch (BlogPostNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
-            {                
+            {
+                _logger.LogError(ex, "An error occured while processing the request");
                 throw new NullReferenceException("No data", ex);
             }
         }
