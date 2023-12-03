@@ -11,6 +11,7 @@ namespace ShareBook
     {
         public static void Main(string[] args)
         {
+            var policyName = "_myAllowSpecificOrigins";
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -19,6 +20,20 @@ namespace ShareBook
 
             builder.Services.AddTransient<IBlogPostRepository, BlogPostRepository>();
             builder.Services.AddTransient<IProfileRepository, ProfileRepository>();
+
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: policyName,
+                                  builder =>
+                                  {
+                                      builder
+                                        .WithOrigins()
+                                        .AllowAnyOrigin()
+                                        .WithMethods("GET")
+                                        .AllowAnyHeader();
+                                  });
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -39,8 +54,9 @@ namespace ShareBook
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors(policyName);
 
+            app.UseAuthorization();
 
             app.MapControllers();
 
