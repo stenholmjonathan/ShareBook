@@ -18,6 +18,11 @@ namespace ShareBook.Repositories
         {
             return _context.Profiles;
         }
+
+        public async Task<IEnumerable<Profile>> GetProfileById(int profileId)
+        {
+            return await _context.Profiles.Where(x => x.Id == profileId).ToListAsync();
+        }
     }
 }
 

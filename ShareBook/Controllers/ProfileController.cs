@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ShareBook.Exceptions;
 using ShareBook.Repositories.Interfaces;
 using ShareBook.Services;
 
@@ -23,8 +24,40 @@ namespace ShareBook.Controllers
         [Route("GetAll")]
         public async Task<IActionResult> GetAllProfiles()
         {
-            var profiles = await _profileService.GetAllProfiles();
-            return Ok(profiles);
+            try
+            {
+                var profiles = await _profileService.GetAllProfiles();
+                return Ok(profiles);
+            }
+            catch (ProfileNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured while processing the request");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetProfileById")]
+        public async Task<IActionResult> GetProfileById(int profileId)
+        {
+            try
+            {
+                var profiles = await _profileService.GetProfileById(profileId);
+                return Ok(profiles);
+            }
+            catch (ProfileNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured while processing the request");
+                throw new NullReferenceException("No data", ex);
+            }
         }
     }
 }
