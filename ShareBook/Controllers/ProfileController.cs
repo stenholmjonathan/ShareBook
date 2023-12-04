@@ -53,6 +53,10 @@ namespace ShareBook.Controllers
             {
                 return NotFound(ex.Message);
             }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occured while processing the request");

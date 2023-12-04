@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShareBook.Exceptions;
 using ShareBook.Repositories.Interfaces;
 using ShareBookApi.Context;
 using ShareBookApi.Models;
@@ -16,12 +17,31 @@ namespace ShareBook.Repositories
 
         public async Task<IEnumerable<Profile>> GetAllProfiles()
         {
-            return _context.Profiles;
+            var result = await _context.Profiles.ToListAsync();
+
+            if (!result.Any())
+            {
+                throw new ProfileNotFoundException("No profiles were found");
+            }
+
+            return result;
         }
 
         public async Task<IEnumerable<Profile>> GetProfileById(int profileId)
         {
-            return await _context.Profiles.Where(x => x.Id == profileId).ToListAsync();
+            if (profileId < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(profileId));
+            }
+
+            var result = await _context.Profiles.Where(x => x.Id == profileId).ToListAsync();
+
+            if (!result.Any())
+            {
+                throw new ProfileNotFoundException("The profile was not found");
+            }
+
+            return result;
         }
     }
 }
