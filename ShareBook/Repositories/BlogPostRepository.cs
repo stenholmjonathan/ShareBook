@@ -25,16 +25,22 @@ namespace ShareBook.Repositories
 
             if (!result.Any())
             {
-                throw new BlogPostNotFoundException("No blogposts were found");
+                throw new BlogPostNotFoundException("The blog post was not found");
             }
             
-
             return result;
         }
 
         public async Task<IEnumerable<BlogPost>> GetAllBlogPosts()
         {
-            return await _context.Posts.ToListAsync();
+            var result = await _context.Posts.ToListAsync();
+
+            if (!result.Any())
+            {
+                throw new BlogPostNotFoundException("No blog posts were found");
+            }
+
+            return result;
         }
     }
 }

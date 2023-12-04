@@ -30,9 +30,13 @@ namespace ShareBook.Controllers
                 var result = await _blogPostService.GetBlogPostByProfileId(profileId);
                 return Ok(result);
             }
-            catch (ProfileNotFoundException ex)
+            catch (BlogPostNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
