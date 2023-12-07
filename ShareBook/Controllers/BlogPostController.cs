@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using ShareBook.Exceptions;
 using ShareBook.Repositories.Interfaces;
 using ShareBookApi.Models;
@@ -32,15 +33,17 @@ namespace ShareBook.Controllers
             }
             catch (BlogPostNotFoundException ex)
             {
+                //logger
                 return NotFound(ex.Message);
             }
             catch (ArgumentOutOfRangeException ex)
             {
+                //logger
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occured while processing the request");
+                _logger.LogError(ex, "An error occured while processing the request.");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -58,10 +61,15 @@ namespace ShareBook.Controllers
             {
                 return NotFound(ex.Message);
             }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex, "SQL Server, the server was not found or accessible");
+                return StatusCode(500, ex.Message);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occured while processing the request");
-                throw new NullReferenceException("No data", ex);
+                throw new NullReferenceException("No data", ex); // generally do a return
             }
         }
     }

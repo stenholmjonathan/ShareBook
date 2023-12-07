@@ -55,12 +55,13 @@ namespace ShareBook.Controllers
             }
             catch (ArgumentOutOfRangeException ex)
             {
+                //logger överallt
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occured while processing the request");
-                throw new NullReferenceException("No data", ex);
+                throw new NullReferenceException("No data", ex); // om du kommer hit, ingen throw, gör en return statuscode 500 + ex.Message
             }
         }
     }
