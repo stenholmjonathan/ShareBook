@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ShareBookApi.Models;
+﻿using ShareBookApi.Models;
 
 namespace ShareBook.Repositories.Interfaces
 {
