@@ -9,17 +9,17 @@ namespace ShareBook.Services
 
         public BlogPostService(IBlogPostRepository blogPostRepository)
         {
-            _blogPostRepository = blogPostRepository;    
-        }
-
-        public async Task<IEnumerable<BlogPost>> GetBlogPostByProfileId(int profileId)
-        {
-            return await _blogPostRepository.GetBlogPostByProfileId(profileId);
+            _blogPostRepository = blogPostRepository;
         }
 
         public async Task<IEnumerable<BlogPost>> GetAllBlogPosts()
         {
             return await _blogPostRepository.GetAllBlogPosts();
+        }
+
+        public async Task<IEnumerable<BlogPost>> GetBlogPostByProfileId(int profileId)
+        {
+            return await _blogPostRepository.GetBlogPostByProfileId(profileId);
         }
     }
 }

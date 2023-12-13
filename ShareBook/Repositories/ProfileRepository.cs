@@ -31,7 +31,7 @@ namespace ShareBook.Repositories
         {
             if (profileId < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(profileId));
+                throw new ArgumentOutOfRangeException($"The param: {nameof(profileId)} is not valid. The invalid value is: {profileId}");
             }
 
             var result = await _context.Profiles.Where(x => x.Id == profileId).ToListAsync();

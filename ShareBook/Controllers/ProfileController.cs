@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using ShareBook.Exceptions;
 using ShareBook.Repositories.Interfaces;
-using ShareBook.Services;
 
 namespace ShareBook.Controllers
 {
@@ -31,7 +31,13 @@ namespace ShareBook.Controllers
             }
             catch (ProfileNotFoundException ex)
             {
+                _logger.LogError(ex, "No profile was found");
                 return NotFound(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex, "SQL Server, the server was not found or accessible");
+                return StatusCode(500, ex.Message);
             }
             catch (Exception ex)
             {
@@ -51,17 +57,23 @@ namespace ShareBook.Controllers
             }
             catch (ProfileNotFoundException ex)
             {
+                _logger.LogError(ex, "No profile was found.");
                 return NotFound(ex.Message);
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                //logger överallt
+                _logger.LogError(ex, "Input out of range.");
                 return BadRequest(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex, "SQL Server, the server was not found or accessible");
+                return StatusCode(500, ex.Message);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occured while processing the request");
-                throw new NullReferenceException("No data", ex); // om du kommer hit, ingen throw, gör en return statuscode 500 + ex.Message
+                return StatusCode(500, "Internal server error");
             }
         }
     }

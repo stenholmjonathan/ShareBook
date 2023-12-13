@@ -8,7 +8,7 @@ namespace ShareBook.Services
         private readonly IProfileRepository _profileRepository;
         public ProfileService(IProfileRepository profileRepository)
         {
-            _profileRepository = profileRepository;        
+            _profileRepository = profileRepository;
         }
 
         public async Task<IEnumerable<Profile>> GetAllProfiles()
