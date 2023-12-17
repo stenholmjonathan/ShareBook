@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import BlogPost from "../models/BlogPost";
-import { Center } from "@chakra-ui/react";
+import { Center, ListItem, List } from "@chakra-ui/react";
 import BlogPostComponent from './BlogPostComponent';
 
 export default class BlogPosts extends React.Component {
@@ -27,13 +27,13 @@ export default class BlogPosts extends React.Component {
   render() {
     return (
       <Center>
-        <ul>
+        <List>
           {this.state.blogposts.map((blogPost) => (
-            <li key={blogPost.id}>
+            <ListItem key={blogPost.id}>
               <BlogPostComponent blogPost={blogPost} />
-            </li>
+            </ListItem>
           ))}
-        </ul>
+        </List>
       </Center>
     );
   }
