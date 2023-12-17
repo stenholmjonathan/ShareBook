@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import BlogPost from "../models/BlogPost";
 import { Center } from "@chakra-ui/react";
+import BlogPostComponent from './BlogPostComponent';
 
 export default class BlogPosts extends React.Component {
   state = {
@@ -18,22 +19,22 @@ export default class BlogPosts extends React.Component {
         this.setState({ blogposts });
       })
       .catch((error) => {
-        console.error("Error fetching profiles:", error);
+        console.error('Error fetching blog posts:', error);
       });
   }
+
   // gör en egen component, rendera arrayen med componenten
   render() {
     return (
-      <ul>
-        {this.state.blogposts.map((blogposts) => (
-          <li key={blogposts.id}>
-            <article>
-              Profile ID: {blogposts.profileId}, Subject: {blogposts.subject},
-              Message: {blogposts.message}
-            </article>
-          </li>
-        ))}
-      </ul>
+      <Center>
+        <ul>
+          {this.state.blogposts.map((blogPost) => (
+            <li key={blogPost.id}>
+              <BlogPostComponent blogPost={blogPost} />
+            </li>
+          ))}
+        </ul>
+      </Center>
     );
   }
 }
