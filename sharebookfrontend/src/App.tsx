@@ -1,5 +1,4 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
-import { Route, Routes } from "react-router-dom";
 import BlogPosts from "./components/BlogPosts.tsx";
 import NavBar from "./components/NavBar.tsx";
 
