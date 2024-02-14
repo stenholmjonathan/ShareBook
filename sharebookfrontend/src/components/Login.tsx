@@ -1,5 +1,6 @@
 // LoginPage.tsx
 import React, { useState } from 'react';
+import axios from "axios";
 import { Button, FormControl, FormLabel, Input, VStack, Container } from '@chakra-ui/react';
 
 interface LoginPageProps {
@@ -14,7 +15,21 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     // Perform authentication logic (e.g., check username and password)
     // For simplicity, let's assume the user is always authenticated
     console.log("LoginPage.tsx - handleLogin")
+    saveUserNameAndPassword()
+
+    // if user exists login
+  
     onLogin(username);
+  };
+
+  const saveUserNameAndPassword = () => {
+    axios
+    .get<UserModel[]>(
+      "https://localhost:7179/users/getUser"
+    )
+    .catch((error) => {
+      console.error('Error fetching blog posts:', error);
+    });
   };
 
   return (

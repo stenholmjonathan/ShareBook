@@ -1,6 +1,6 @@
 // App.tsx
 import React, { useState, useEffect } from 'react';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './components/Login.tsx';
 import BlogPosts from './components/BlogPosts.tsx';
 import { Grid, GridItem } from '@chakra-ui/react';
 import NavBar from './components/NavBar.tsx';

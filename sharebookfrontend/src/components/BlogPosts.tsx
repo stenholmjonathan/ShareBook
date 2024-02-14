@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import BlogPost from "../models/BlogPost";
 import { Center, ListItem, List } from "@chakra-ui/react";
-import BlogPostComponent from './BlogPostComponent';
+import BlogPostComponent from './BlogPost';
 
 export default class BlogPosts extends React.Component {
   state = {
