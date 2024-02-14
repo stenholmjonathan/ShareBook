@@ -23,7 +23,7 @@ namespace ShareBookApi.Context
                 {
                     Id = 2,
                     Description = "Mitt namn är Johan",
-                    Name = "Johan",
+                    Name = "Joakim",
                 }
             );
 
