@@ -13,6 +13,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const handleLogin = () => {
     // Perform authentication logic (e.g., check username and password)
     // For simplicity, let's assume the user is always authenticated
+    console.log("LoginPage.tsx - handleLogin")
     onLogin(username);
   };
 

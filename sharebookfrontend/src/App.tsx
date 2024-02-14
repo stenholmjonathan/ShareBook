@@ -11,13 +11,16 @@ const App: React.FC = () => {
   useEffect(() => {
     // Check if the username is already in localStorage on component mount
     const storedUsername = localStorage.getItem('username');
+    console.log("App.tsx - useEffect: User name är inte satt: " + storedUsername)
     if (storedUsername) {
+      console.log("App.tsx - useEffect: User name är satt: " + storedUsername)
       setUser(storedUsername);
     }
   }, []);
 
   const handleLogin = (username: string) => {
     localStorage.setItem('username', username);
+    console.log("App.tsx - HandleLogin: Här sparas username i localstorage")
     setUser(username);
   };
 
