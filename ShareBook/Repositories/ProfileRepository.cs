@@ -43,6 +43,25 @@ namespace ShareBook.Repositories
 
             return result;
         }
+
+        public async Task<string> GetProfilePasswordById(int profileId)
+        {
+            if (profileId < 0)
+            {
+                throw new ArgumentOutOfRangeException($"The param: {nameof(profileId)} is not valid. The invalid value is: {profileId}");
+            }
+
+            var profile = await _context.Profiles.FirstOrDefaultAsync(x => x.Id == profileId);
+            string password = profile.Password;
+
+            if (profile != null)
+            {
+                return profile.Password;
+            } else
+            {
+                return null;
+            }
+        }
     }
 }
 

@@ -76,5 +76,36 @@ namespace ShareBook.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpGet]
+        [Route("GetProfilePasswordById")]
+        public async Task<IActionResult> GetProfilePasswordById(int profileId)
+        {
+            try
+            {
+                var result = await _profileService.GetProfilePasswordById(profileId);
+                return Ok(result);
+            }
+            catch (ProfileNotFoundException ex)
+            {
+                _logger.LogError(ex, "No profile was found.");
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                _logger.LogError(ex, "Input out of range.");
+                return BadRequest(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex, "SQL Server, the server was not found or accessible");
+                return StatusCode(500, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured while processing the request");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ShareBook.Repositories;
 using ShareBook.Repositories.Interfaces;
 using ShareBook.Services;
+using ShareBook.Services.Interfaces;
 using ShareBookApi.Context;
 
 namespace ShareBook
@@ -17,9 +18,11 @@ namespace ShareBook
             // Add services to the container.
             builder.Services.AddTransient<IBlogPostService, BlogPostService>();
             builder.Services.AddTransient<IProfileService, ProfileService>();
+            builder.Services.AddTransient<IUserService, UserService>();
 
             builder.Services.AddTransient<IBlogPostRepository, BlogPostRepository>();
             builder.Services.AddTransient<IProfileRepository, ProfileRepository>();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 
             builder.Services.AddCors(options =>

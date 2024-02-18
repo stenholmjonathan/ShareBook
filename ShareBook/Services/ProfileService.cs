@@ -20,5 +20,9 @@ namespace ShareBook.Services
         {
             return await _profileRepository.GetProfileById(profileId);
         }
+        public async Task<string> GetProfilePasswordById(int profileId)
+        {
+            return await _profileRepository.GetProfilePasswordById(profileId);
+        }
     }
 }

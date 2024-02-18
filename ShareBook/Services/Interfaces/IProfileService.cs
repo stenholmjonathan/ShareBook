@@ -5,7 +5,7 @@ namespace ShareBook.Repositories.Interfaces
     public interface IProfileService
     {
         Task<IEnumerable<Profile>> GetAllProfiles();
-
         Task<IEnumerable<Profile>> GetProfileById(int profileId);
+        Task <string> GetProfilePasswordById(int profileId);
     }
 }

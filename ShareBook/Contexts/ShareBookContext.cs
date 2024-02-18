@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShareBook.Models;
 using ShareBookApi.Models;
 
 namespace ShareBookApi.Context
@@ -7,23 +8,42 @@ namespace ShareBookApi.Context
     {
         public ShareBookContext(DbContextOptions<ShareBookContext> options) : base(options) { }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<BlogPost> Posts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                Id = 1,
+                Email = "user1@mail.com",
+                Password = "111",
+            },
+            new User
+            {
+                Id = 2,
+                Email = "user2@mail.com",
+                Password = "222",
+            }
+        );
             modelBuilder.Entity<Profile>().HasData(
                 new Profile
                 {
                     Id = 1,
                     Description = "Mitt namn är Jonathan",
                     Name = "Jonathan",
+                    Email = "jonathan@mail.com",
+                    Password = "123",
                 },
                 new Profile
                 {
                     Id = 2,
                     Description = "Mitt namn är Johan",
                     Name = "Johan",
+                    Email = "johan@mail.com",
+                    Password = "abc",
                 }
             );
 
